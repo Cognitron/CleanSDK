@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/Artem Eremeev/CleanSDK'
+  s.homepage         = 'https://bitbucket.org/purenative/clean.sdk.ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Artem Eremeev' => 'jeremy1002@yandex.ru' }
