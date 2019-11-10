@@ -29,12 +29,12 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/Artem Eremeev/CleanSDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
+  s.requires_arc     = true
   s.ios.deployment_target = '10.0'
+  s.swift_version    = '5.0'
 
-  s.source_files = 'CleanSDK/Classes/**/*'
-#  s.source_files = 'CleanSDK/Classes/Arch/*.swift', 'CleanSDK/Classes/ReusableUI/*.swift'
+  s.source_files = 'CleanSDK/Classes/**/**/*.{swift}', 'CleanSDK/Classes/**/*.{swift}'
   
-  s.swift_version = '5.0'
 
   
   # s.resource_bundles = {
