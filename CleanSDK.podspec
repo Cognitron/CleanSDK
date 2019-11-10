@@ -31,8 +31,11 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '10.0'
 
-#  s.source_files = 'CleanSDK/Classes/**/*'
-  s.source_files = 'CleanSDK/Classes/Arch/*.swift', 'CleanSDK/Classes/ReusableUI/*.swift'
+  s.source_files = 'CleanSDK/Classes/**/*'
+#  s.source_files = 'CleanSDK/Classes/Arch/*.swift', 'CleanSDK/Classes/ReusableUI/*.swift'
+  
+  s.swift_version = '5.0'
+
   
   # s.resource_bundles = {
   #   'CleanSDK' => ['CleanSDK/Assets/*.png']
