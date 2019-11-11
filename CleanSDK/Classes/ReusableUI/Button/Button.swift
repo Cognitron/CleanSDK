@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 open class Button: UIButton {
     
     @IBInspectable var styleFileName: String? { didSet { loadStyle() } }
@@ -25,6 +26,16 @@ open class Button: UIButton {
     override open var isEnabled: Bool { didSet { setNeedsDisplay() } }
     override open var isSelected: Bool { didSet { setNeedsDisplay() } }
     
+    init(frame: CGRect) {
+        super.init(frame: frame)
+        loadStyle()
+    }
+    
+    init(coder: NSCoder) {
+        super.init(coder: coder)
+        loadStyle()
+    }
+    
     open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         loadStyle()
@@ -38,20 +49,20 @@ open class Button: UIButton {
         
         if isEnabled {
             if isHighlighted {
-                (reusableStyle.highlightedBackgroundColor ?? reusableStyle.backgroundColor)?.setFill()
-                (reusableStyle.highlightedBorderColor ?? reusableStyle.borderColor)?.setStroke()
+                (reusableStyle.highlightedBackgroundColor ?? reusableStyle.backgroundColor.withAlphaComponent(0.85))?.setFill()
+                (reusableStyle.highlightedBorderColor ?? reusableStyle.borderColor.withAlphaComponent(0.85))?.setStroke()
             } else {
                 if isSelected {
-                    (reusableStyle.selectedBackgroundColor ?? reusableStyle.backgroundColor)?.setFill()
-                    (reusableStyle.selectedBorderColor ?? reusableStyle.borderColor)?.setStroke()
+                    (reusableStyle.selectedBackgroundColor ?? reusableStyle.backgroundColor.withAlphaComponent(0.85))?.setFill()
+                    (reusableStyle.selectedBorderColor ?? reusableStyle.borderColor.withAlphaComponent(0.85))?.setStroke()
                 } else {
                     reusableStyle.backgroundColor?.setFill()
                     reusableStyle.borderColor?.setStroke()
                 }
             }
         } else {
-            (reusableStyle.disabledBackgroundColor ?? reusableStyle.backgroundColor)?.setFill()
-            (reusableStyle.disabledBorderColor ?? reusableStyle.borderColor)?.setStroke()
+            (reusableStyle.disabledBackgroundColor ?? reusableStyle.backgroundColor.withAlphaComponent(0.5))?.setFill()
+            (reusableStyle.disabledBorderColor ?? reusableStyle.borderColor.withAlphaComponent(0.5))?.setStroke()
         }
         
         let frame = rect.insetBy(dx: reusableStyle.borderWidth, dy: reusableStyle.borderWidth)
@@ -82,8 +93,8 @@ open class Button: UIButton {
         }
         setTitleColor(reusableStyle.textColor, for: .normal)
         setTitleColor(reusableStyle.selectedTextColor, for: .selected)
-        setTitleColor(reusableStyle.highlightedTextColor, for: .highlighted)
-        setTitleColor(reusableStyle.disabledTextColor, for: .disabled)
+        setTitleColor(reusableStyle.highlightedTextColor  ?? reusableStyle.textColor.withAlphaComponent(0.85), for: .highlighted)
+        setTitleColor(reusableStyle.disabledTextColor ?? reusableStyle.textColor.withAlphaComponent(0.5), for: .disabled)
     }
     
     private func setupFonts(using reusableStyle: ButtonStyle!) {
