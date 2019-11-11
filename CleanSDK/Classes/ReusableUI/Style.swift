@@ -44,4 +44,11 @@ class Style<D: Decodable> {
         }
     }
     
+    func optionalColor(fromHexString hex: String) -> UIColor? {
+        guard !hex.isEmpty else {
+            return nil
+        }
+        return color(fromHexString: hex)
+    }
+    
 }
