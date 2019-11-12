@@ -25,6 +25,14 @@ public enum WebClientError: Error, LocalizedError {
         }
     }
     
+    func parseErrorBody<T: Decodable>() -> T? {
+        guard let data = body?.data(using: .utf8) else {
+            return nil
+        }
+        let decoder = JSONDecoder()
+        return try? decoder.decode(T.self, from: data)
+    }
+    
     public var errorDescription: String? {
         switch self {
         case .requestCreating:
