@@ -1,6 +1,6 @@
 //
 //  ViewStyleData.swift
-//  Alamofire
+//  CleanSDK
 //
 //  Created by Artem Eremeev on 13.11.2019.
 //

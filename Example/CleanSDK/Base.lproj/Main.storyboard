@@ -30,11 +30,37 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleFileName" value="ViewStyle"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-Kt-rxn" customClass="View" customModule="CleanSDK">
+                                <rect key="frame" x="26" y="10" width="200" height="100"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1qE-ht-L7W"/>
+                                    <constraint firstAttribute="width" constant="200" id="bBV-lj-fDU"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleFileName" value="ViewStyle"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWP-1N-jD9" customClass="View" customModule="CleanSDK">
+                                <rect key="frame" x="150" y="447" width="200" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="C9J-n8-Kjo"/>
+                                    <constraint firstAttribute="height" constant="100" id="atA-fH-vg3"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleFileName" value="ViewStyle"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="XZb-MN-Bh8" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Wq5-bF-497"/>
                             <constraint firstItem="XZb-MN-Bh8" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="dZy-hD-8w5"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="dWP-1N-jD9" secondAttribute="bottom" constant="10" id="jSN-62-B0U"/>
+                            <constraint firstItem="Yjn-Kt-rxn" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="10" id="lDu-pu-kd9"/>
+                            <constraint firstItem="Yjn-Kt-rxn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="10" id="qFJ-vv-Shg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dWP-1N-jD9" secondAttribute="trailing" constant="10" id="vbL-YS-9oF"/>
                         </constraints>
                     </view>
                 </viewController>

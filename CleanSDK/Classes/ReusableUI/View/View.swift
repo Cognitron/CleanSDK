@@ -1,10 +1,11 @@
 //
 //  View.swift
-//  Alamofire
+//  CleanSDK
 //
 //  Created by Artem Eremeev on 13.11.2019.
 //
 
+import Foundation
 import UIKit
 
 @IBDesignable
@@ -74,3 +75,4 @@ open class View: UIView, StyleableType {
     }
 
 }
+
