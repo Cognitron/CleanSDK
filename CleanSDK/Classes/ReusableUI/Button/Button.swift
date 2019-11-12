@@ -9,10 +9,10 @@
 import UIKit
 
 @IBDesignable
-open class Button: UIButton {
+open class Button: UIButton, StyleableType {
     
-    @IBInspectable var styleFileName: String? { didSet { loadStyle() } }
-    @IBInspectable var bundleIdentifier: String? = Bundle.main.bundleIdentifier { didSet { loadStyle() } }
+    @IBInspectable public var styleFileName: String? { didSet { reloadStyle() } }
+    @IBInspectable public var bundleIdentifier: String? = Bundle.main.bundleIdentifier { didSet { reloadStyle() } }
     
     private var reusableStyle: ButtonStyle! {
         didSet {
@@ -28,17 +28,17 @@ open class Button: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadStyle()
+        reloadStyle()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        loadStyle()
+        reloadStyle()
     }
     
     open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        loadStyle()
+        reloadStyle()
     }
     
     override open func draw(_ rect: CGRect) {
@@ -80,11 +80,8 @@ open class Button: UIButton {
         
     }
     
-    private func loadStyle() {
-        guard let styleFileName = self.styleFileName, let bundleIdentifier = self.bundleIdentifier else {
-            return
-        }
-        reusableStyle = StyleDecoder.decodeStyle(bundleIdentifier: bundleIdentifier, styleFileName: styleFileName)
+    private func reloadStyle() {
+        reusableStyle = loadStyle()
     }
     
     private func setupTextColors(using reusableStyle: ButtonStyle!) {

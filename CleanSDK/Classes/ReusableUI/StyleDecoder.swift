@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StyleDecoder {
+public class StyleDecoder {
     
     static func decodeStyle<D: Decodable, S: Style<D>>(bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "", styleFileName: String) -> S? {
         guard let bundle = Bundle(identifier: bundleIdentifier) else {

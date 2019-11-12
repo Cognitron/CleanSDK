@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Style<D: Decodable> {
+public class Style<D: Decodable> {
     
     let data: D
     
