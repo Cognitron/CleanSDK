@@ -48,10 +48,12 @@ open class View: UIView, StyleableType {
         let path = UIBezierPath(roundedRect: rect.insetBy(dx: reusableStyle.borderWidth, dy: reusableStyle.borderWidth), cornerRadius: reusableStyle.cornerRadius)
         path.lineWidth = reusableStyle.borderWidth
         
-        (reusableStyle.backgroundColor ?? .clear).setFill()
-        (reusableStyle.borderColor ?? .clear).setStroke()
+        if let backgroundColor = reusableStyle.backgroundColor {
+            backgroundColor.setFill()
+            path.fill()
+        }
         
-        path.fill()
+        (reusableStyle.borderColor ?? reusableStyle.backgroundColor)?.setStroke()
         path.stroke()
         
     }
