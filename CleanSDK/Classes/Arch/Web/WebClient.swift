@@ -21,7 +21,7 @@ public class WebClient: DataProvider {
             let request = try! self.createRequest(route: route, method: method, settings: settings)
             let dataRequest = Alamofire.SessionManager.default.request(request)
             
-            dataRequest.responseString(completionHandler: { dataResponse in
+            dataRequest.responseData(completionHandler: { dataResponse in
                 self.processResponse(route: route, dataResponse: dataResponse, observer: observer)
             })
             
@@ -70,7 +70,7 @@ public class WebClient: DataProvider {
                 switch result {
                 case let .success(request, _, _):
                     uploadRequest = request
-                    request.responseString(completionHandler: { dataResponse in
+                    request.responseData(completionHandler: { dataResponse in
                         self.processResponse(route: route, dataResponse: dataResponse, observer: observer)
                     })
                     
@@ -171,9 +171,10 @@ public class WebClient: DataProvider {
         return request
     }
     
-    private func processResponse<T: Decodable>(route: RouterType, dataResponse: DataResponse<String>, observer: (SingleEvent<T>) -> Void) {
+    private func processResponse<T: Decodable>(route: RouterType, dataResponse: DataResponse<Data>, observer: (SingleEvent<T>) -> Void) {
         
-        let body = dataResponse.result.value ?? ""
+        let data = dataResponse.data ?? Data()
+        let body = String(data: data, encoding: .utf8) ?? "no body"
         
         if Debugger.needDebugWebResponse {
             print("Response for \(route.path)")
@@ -186,7 +187,7 @@ public class WebClient: DataProvider {
                 print(body)
             }
             do {
-                let decoded: T = try decode(string: body)
+                let decoded: T = try decode(data: data)
                 observer(.success(decoded))
             } catch let error {
                 observer(.error(error))
@@ -208,7 +209,8 @@ public class WebClient: DataProvider {
     
     private func processResponse(route: RouterType, dataResponse: DataResponse<String>, observer: (SingleEvent<Void>) -> Void) {
         
-        let body = dataResponse.result.value ?? ""
+        let data = dataResponse.data ?? Data()
+        let body = String(data: data, encoding: .utf8) ?? "no body"
         
         if Debugger.needDebugWebResponse {
             print("Response for \(route.path)")
@@ -270,10 +272,7 @@ public class WebClient: DataProvider {
     
     
     
-    private func decode<T: Decodable>(string: String) throws -> T  {
-        guard let data = string.data(using: .utf8) else {
-            throw WebClientError.noDataForDecoding
-        }
+    private func decode<T: Decodable>(data: Data) throws -> T  {
         let decoder = JSONDecoder()
         guard let result = try? decoder.decode(T.self, from: data) else {
             throw WebClientError.decoding
