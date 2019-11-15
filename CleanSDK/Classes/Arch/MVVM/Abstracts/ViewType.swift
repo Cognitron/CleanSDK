@@ -14,19 +14,19 @@ public protocol ViewType where Self.ViewModel: ViewModelType {
     func bind(viewModel: ViewModel)
 }
 
-public extension ViewType where Self: UIViewController {
+public extension UIViewController {
     static var controllerIdentifier: String {
         return String(describing: self)
     }
 }
 
-public extension ViewType where Self: UITableViewCell {
+public extension UITableViewCell {
     static var cellIdentifier: String {
         return String(describing: self)
     }
 }
 
-public extension ViewType where Self: UICollectionViewCell {
+public extension UICollectionViewCell {
     static var cellIdentifier: String {
         return String(describing: self)
     }

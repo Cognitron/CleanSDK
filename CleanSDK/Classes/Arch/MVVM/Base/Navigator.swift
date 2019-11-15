@@ -31,7 +31,7 @@ public class Navigator {
         return visibleController
     }
     
-    private func createController<VM: ViewModelType, V: ViewController<VM>>(_ controller: V.Type, viewModel: VM) -> V {
+    public func createController<VM: ViewModelType, V: ViewController<VM>>(_ controller: V.Type, viewModel: VM) -> V {
         guard let storyboardInstance = self.storyboardInstance else {
             fatalError("Для создания контроллера необходимо инициализировать StoryboardInstanceType")
         }
@@ -39,6 +39,31 @@ public class Navigator {
         let controller: V = storyboard.instantiateViewController(withIdentifier: V.controllerIdentifier) as! V
         controller.viewModel = viewModel
         return controller
+    }
+    
+    private func createController<C: UIViewController>(_ controller: C.Type) -> C {
+        guard let storyboardInstance = self.storyboardInstance else {
+            fatalError("Для создания контроллера необходимо инициализировать StoryboardInstanceType")
+        }
+        let storyboard = UIStoryboard(name: storyboardInstance.name, bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: C.controllerIdentifier) as! C
+        return controller
+    }
+    
+    public func root<C: UIViewController>(_ controller: C.Type) {
+        let controller: C = createController(C.self)
+        guard let delegate = UIApplication.shared.delegate, let window = delegate.window else {
+            return
+        }
+        guard let storyboardInstance = self.storyboardInstance else {
+            fatalError("Для создания контроллера необходимо инициализировать StoryboardInstanceType")
+        }
+        if let navigationController = storyboardInstance.rootNavigationController {
+            navigationController.viewControllers = [controller]
+            window?.rootViewController = navigationController
+        } else {
+            window?.rootViewController = controller
+        }
     }
     
     public func push<VM: ViewModelType, V: ViewController<VM>>(_ controller: V.Type, viewModel: VM) {
