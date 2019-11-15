@@ -58,7 +58,9 @@ public class Navigator {
         guard let storyboardInstance = self.storyboardInstance else {
             fatalError("Для создания контроллера необходимо инициализировать StoryboardInstanceType")
         }
-        if let navigationController = storyboardInstance.rootNavigationController {
+        if controller is UITabBarController {
+            window?.rootViewController = controller
+        } else if let navigationController = storyboardInstance.rootNavigationController {
             navigationController.viewControllers = [controller]
             window?.rootViewController = navigationController
         } else {

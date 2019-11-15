@@ -20,7 +20,7 @@ public extension StoryboardInstanceType {
     
     func navigationController(controllerName: String) -> UINavigationController! {
         let storyboard = UIStoryboard(name: name, bundle: nil)
-        let navigationController: UINavigationController = storyboard.instantiateViewController(withIdentifier: "\(controllerName)NavigationController") as! UINavigationController
+        let navigationController = storyboard.instantiateViewController(withIdentifier: "\(controllerName)NavigationController") as? UINavigationController
         return navigationController
     }
     
