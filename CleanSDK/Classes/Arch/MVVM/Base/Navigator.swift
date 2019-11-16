@@ -70,14 +70,7 @@ public class Navigator {
     
     public func push<VM: ViewModelType, V: ViewController<VM>>(_ controller: V.Type, viewModel: VM) {
         let controller: V = createController(V.self, viewModel: viewModel)
-        let visibleController = self.visibleController
-        if let tabBarController = visibleController as? UITabBarController {
-            if let navigationController = tabBarController.selectedViewController as? UINavigationController {
-                navigationController.pushViewController(controller, animated: true)
-            }
-        } else {
-            visibleController?.navigationController?.pushViewController(controller, animated: true)
-        }
+        visibleController?.navigationController?.pushViewController(controller, animated: true)
     }
      
     public func pop() {
