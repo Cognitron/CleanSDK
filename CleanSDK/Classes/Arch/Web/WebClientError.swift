@@ -16,7 +16,7 @@ public enum WebClientError: Error, LocalizedError {
     case timedOut
     case unknown(body: String)
     
-    var body: String? {
+    public var body: String? {
         switch self {
         case let .unknown(body):
             return body
@@ -25,7 +25,7 @@ public enum WebClientError: Error, LocalizedError {
         }
     }
     
-    func parseErrorBody<T: Decodable>() -> T? {
+    public func parseErrorBody<T: Decodable>() -> T? {
         guard let data = body?.data(using: .utf8) else {
             return nil
         }
