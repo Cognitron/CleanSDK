@@ -10,7 +10,7 @@ class NavigationBar: UINavigationBar {
     }
     
     @IBInspectable var underlineColor: UIColor! {
-        didSet { shadowImage = generateUnderlineImage(nil) }
+        didSet { shadowImage = generateUnderlineImage(underlineColor) }
     }
     
     override init(frame: CGRect) {
