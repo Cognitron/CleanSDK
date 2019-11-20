@@ -9,6 +9,10 @@ class NavigationBar: UINavigationBar {
         didSet { set(backIcon: backIcon) }
     }
     
+    @IBInspectable var underlineColor: UIColor! {
+        didSet { shadowImage = generateUnderlineImage(nil) }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadUI()
@@ -26,7 +30,7 @@ class NavigationBar: UINavigationBar {
 
     private func loadUI() {
         setBackgroundImage(UIImage(), for: .default)
-        shadowImage = UIImage()
+        shadowImage = generateUnderlineImage(nil)
         set(backIcon: backIcon)
     }
     
@@ -35,6 +39,19 @@ class NavigationBar: UINavigationBar {
             backIndicatorImage = backIcon
             backIndicatorTransitionMaskImage = backIcon
         }
+    }
+    
+    private func generateUnderlineImage(_ color: UIColor!) -> UIImage {
+        guard let color = color else {
+            return UIImage()
+        }
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        let ctx = UIGraphicsGetCurrentContext()
+        color.setFill()
+        ctx?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
     }
 
 }
