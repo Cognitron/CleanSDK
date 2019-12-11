@@ -275,7 +275,7 @@ public class WebClient: DataProvider {
     private func decode<T: Decodable>(data: Data) throws -> T  {
         let decoder = JSONDecoder()
         guard let result = try? decoder.decode(T.self, from: data) else {
-            throw WebClientError.decoding
+            throw WebClientError.decoding(body: String(data: data, encoding: .utf8) ?? "")
         }
         return result
     }

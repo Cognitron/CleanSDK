@@ -10,7 +10,7 @@ import Foundation
 
 public enum WebClientError: Error, LocalizedError {
     case requestCreating
-    case decoding
+    case decoding(body: String)
     case noDataForDecoding
     case notConnectedToInternet
     case timedOut
@@ -18,7 +18,8 @@ public enum WebClientError: Error, LocalizedError {
     
     public var body: String? {
         switch self {
-        case let .unknown(body):
+        case let .decoding(body),
+             let .unknown(body):
             return body
         default:
             return nil

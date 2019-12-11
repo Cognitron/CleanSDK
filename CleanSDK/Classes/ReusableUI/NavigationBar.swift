@@ -13,6 +13,10 @@ class NavigationBar: UINavigationBar {
         didSet { shadowImage = generateUnderlineImage(underlineColor) }
     }
     
+//    @IBInspectable var height: CGFloat = 0.0 {
+//        didSet { setNeedsLayout() }
+//    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadUI()
@@ -53,5 +57,30 @@ class NavigationBar: UINavigationBar {
         UIGraphicsEndImageContext()
         return image ?? UIImage()
     }
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//
+//
+//        if height > 0 {
+//            frame = CGRect(origin: frame.origin, size: CGSize(width: frame.width, height: height))
+//
+//            for subview in self.subviews {
+//                var stringFromClass = NSStringFromClass(subview.classForCoder)
+//                if stringFromClass.contains("BarBackground") {
+//                    subview.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: height)
+//                    subview.backgroundColor = self.backgroundColor
+//                }
+//
+//                stringFromClass = NSStringFromClass(subview.classForCoder)
+//                if stringFromClass.contains("BarContent") {
+//                    subview.frame = CGRect(x: subview.frame.origin.x, y: 20, width: subview.frame.width, height: height)
+//                    subview.backgroundColor = self.backgroundColor
+//                }
+//            }
+//
+//        }
+//
+//    }
 
 }
