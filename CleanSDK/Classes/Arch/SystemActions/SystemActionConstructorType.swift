@@ -25,9 +25,9 @@ public extension SystemActionConstructorType {
         return visibleController
     }
     
-    func present(controller: UIViewController) {
+    func present(controller: UIViewController, completion: (() -> ())? = nil) {
         DispatchQueue.main.async {
-            self.visibleController?.present(controller, animated: true)
+            self.visibleController?.present(controller, animated: true, completion: completion)
         }
     }
 }
