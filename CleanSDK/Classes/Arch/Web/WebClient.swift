@@ -266,7 +266,12 @@ public class WebClient: DataProvider {
                 if let data = "\(value)".data(using: .utf8) {
                     multipart.append(data, withName: field)
                 }
+                
+            case let .file(fileData, fileName, field):
+                multipart.append(fileData, withName: field, fileName: fileName, mimeType: "")
             }
+            
+            
         }
     }
     

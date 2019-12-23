@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CleanSDK
 
 class ViewController: UIViewController {
 
@@ -17,6 +18,12 @@ class ViewController: UIViewController {
 //        if #available(iOS 11.0, *) {
 //             self.additionalSafeAreaInsets.top = (self.navigationController?.navigationBar.frame.size.height)! - 44
 //        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        VideoPlayerConstructor(urlString: "https://prostatic.smd.agency/media/videos/SampleVideo_1280x720_2mb.mp4").show()
     }
 
     override func didReceiveMemoryWarning() {
