@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CleanSDK'
-  s.version          = '0.1.15'
+  s.version          = '0.1.16'
   s.summary          = 'A short description of CleanSDK.'
   s.module_name      = 'CleanSDK'
 

@@ -41,7 +41,7 @@ public class Navigator {
         return controller
     }
     
-    private func createController<C: UIViewController>(_ controller: C.Type) -> C {
+    public func createController<C: UIViewController>(_ controller: C.Type) -> C {
         guard let storyboardInstance = self.storyboardInstance else {
             fatalError("Для создания контроллера необходимо инициализировать StoryboardInstanceType")
         }
@@ -50,13 +50,17 @@ public class Navigator {
         return controller
     }
     
-    public func root<C: UIViewController>(_ controller: C.Type) {
+    public func root<C: UIViewController>(_ controller: C.Type, withoutNavigationController: Bool = false) {
         let controller: C = createController(C.self)
         guard let delegate = UIApplication.shared.delegate, let window = delegate.window else {
             return
         }
         guard let storyboardInstance = self.storyboardInstance else {
             fatalError("Для создания контроллера необходимо инициализировать StoryboardInstanceType")
+        }
+        guard !withoutNavigationController else {
+            window?.rootViewController = controller
+            return
         }
         if controller is UITabBarController {
             window?.rootViewController = controller
