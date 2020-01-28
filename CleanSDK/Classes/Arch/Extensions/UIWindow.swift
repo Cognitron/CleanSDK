@@ -34,10 +34,19 @@ public extension UIWindow {
 
                 return UIWindow.visibleController(from: presentedViewController)
 
-            } else {
-
-                return controller;
+            } else if !controller.children.isEmpty {
+                
+                if let tabBarController = controller.children.compactMap({ $0 as? UITabBarController }).first {
+                    return UIWindow.visibleController(from: tabBarController.selectedViewController!)
+                }
+                if let navigationController = controller.children.compactMap({ $0 as? UINavigationController }).first {
+                    return UIWindow.visibleController(from: navigationController.visibleViewController!)
+                }
+                
             }
+            
+            return controller
+            
         }
     }
 }
