@@ -11,10 +11,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-public class ImagePickerConstructor: NSObject, SystemActionConstructorType, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public class MediaPickerConstructor: NSObject, SystemActionConstructorType, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    public enum Media {
+        case image(URL)
+        case uiimage(UIImage)
+        case video(URL)
+    }
     
     private let imagePickerController: UIImagePickerController
-    private let selectedOriginalImage = BehaviorRelay<UIImage?>(value: nil)
+    private let selectedMedia = BehaviorRelay<Media?>(value: nil)
     
     private let close = PublishSubject<Void>()
     
@@ -29,12 +35,12 @@ public class ImagePickerConstructor: NSObject, SystemActionConstructorType, UIIm
     }
     
     deinit {
-        print("CLNImagePickerConstructor released")
+        print("MediaPickerConstructor released")
     }
     
-    public func show() -> Single<UIImage> {
+    public func show() -> Single<Media> {
         present(controller: imagePickerController)
-        return selectedOriginalImage.skipWhile({ $0 == nil }).map({ $0! }).asObservable().take(1).asSingle()
+        return selectedMedia.skipWhile({ $0 == nil }).map({ $0! }).asObservable().take(1).asSingle()
     }
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -42,10 +48,17 @@ public class ImagePickerConstructor: NSObject, SystemActionConstructorType, UIIm
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        selectedOriginalImage.accept(info[.originalImage] as? UIImage)
+        
+        if #available(iOS 11, *), let imageURL = info[.imageURL] as? URL {
+            selectedMedia.accept(.image(imageURL))
+        } else if let image = info[.originalImage] as? UIImage {
+            selectedMedia.accept(.uiimage(image))
+        } else if let videoURL = info[.mediaURL] as? URL {
+            selectedMedia.accept(.video(videoURL))
+        }
         
         picker.dismiss(animated: true) {
-            picker.constructor = nil 
+            picker.constructor = nil
         }
     }
     
@@ -56,8 +69,8 @@ fileprivate struct UIImagePickerAssociatedKeys {
 }
 
 fileprivate extension UIImagePickerController {
-    var constructor: ImagePickerConstructor! {
-        get { return objc_getAssociatedObject(self, &UIImagePickerAssociatedKeys.constructor) as? ImagePickerConstructor }
+    var constructor: MediaPickerConstructor! {
+        get { return objc_getAssociatedObject(self, &UIImagePickerAssociatedKeys.constructor) as? MediaPickerConstructor }
         set { objc_setAssociatedObject(self, &UIImagePickerAssociatedKeys.constructor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 }
