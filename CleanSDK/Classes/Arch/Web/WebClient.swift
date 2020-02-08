@@ -269,6 +269,9 @@ public class WebClient: DataProvider {
                 
             case let .file(fileData, fileName, field):
                 multipart.append(fileData, withName: field, fileName: fileName, mimeType: "")
+                
+            case let .fileReference(fileURL, field):
+                multipart.append(fileURL, withName: field)
             }
             
             

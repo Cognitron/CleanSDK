@@ -14,6 +14,7 @@ public enum MultipartField: CustomStringConvertible {
     case pngImage(image: UIImage, imageName: String, field: String)
     case value(value: Any, field: String)
     case file(fileData: Data, fileName: String, field: String)
+    case fileReference(fileURL: URL, field: String)
     
     public var description: String {
         switch self {
@@ -25,6 +26,8 @@ public enum MultipartField: CustomStringConvertible {
             return "\(value) for \"\(field)\""
         case let .file(_, fileName, field):
             return "File named \"\(fileName)\" for \"\(field)\""
+        case let .fileReference(fileURL, field):
+            return "File from \"\(fileURL)\" for \"\(field)\""
         }
     }
 }
