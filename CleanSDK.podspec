@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CleanSDK'
-  s.version          = '0.1.19'
+  s.version          = '0.1.20'
   s.summary          = 'A short description of CleanSDK.'
   s.module_name      = 'CleanSDK'
 
@@ -46,6 +46,6 @@ TODO: Add long description of the pod here.
 #   s.dependency 'AFNetworking', '~> 2.3'
    s.dependency 'RxSwift'
    s.dependency 'RxCocoa'
-   s.dependency 'Alamofire'
+   s.dependency 'Alamofire', '< 5'
    s.dependency 'RxDataSources'
 end

@@ -178,10 +178,15 @@ public class WebClient: DataProvider {
         
         if Debugger.needDebugWebResponse {
             print("Response for \(route.path)")
-            print("Success:", dataResponse.result.isSuccess)
         }
         
-        if dataResponse.result.isSuccess {
+        let statusCode = dataResponse.response?.statusCode ?? dataResponse.error?._code ?? 0
+        
+        if Debugger.needDebugWebResponse {
+            print("Status Code: \(statusCode)")
+        }
+        
+        if dataResponse.result.isSuccess, 200..<300 ~= statusCode {
             if Debugger.needDebugWebResponse {
                 print("Body:")
                 print(body)
@@ -193,7 +198,6 @@ public class WebClient: DataProvider {
                 observer(.error(error))
             }
         } else {
-            let errorCode = dataResponse.response?.statusCode ?? dataResponse.error?._code ?? 0
             if Debugger.needDebugWebResponse {
                 if let statusCode = dataResponse.response?.statusCode {
                     print("Status code for \(route.path):", statusCode)
@@ -203,7 +207,7 @@ public class WebClient: DataProvider {
                     print("Unknown error for \(route.path)")
                 }
             }
-            processErrorCode(errorCode: errorCode, errorBody: body, observer: observer)
+            processErrorCode(errorCode: statusCode, errorBody: body, observer: observer)
         }
     }
     
@@ -214,13 +218,17 @@ public class WebClient: DataProvider {
         
         if Debugger.needDebugWebResponse {
             print("Response for \(route.path)")
-            print("Success:", dataResponse.result.isSuccess)
         }
         
-        if dataResponse.result.isSuccess {
+        let statusCode = dataResponse.response?.statusCode ?? dataResponse.error?._code ?? 0
+        
+        if Debugger.needDebugWebResponse {
+            print("Status Code: \(statusCode)")
+        }
+        
+        if dataResponse.result.isSuccess, 200..<300 ~= statusCode {
             observer(.success(()))
         } else {
-            let errorCode = dataResponse.response?.statusCode ?? dataResponse.error?._code ?? 0
             if Debugger.needDebugWebResponse {
                 if let statusCode = dataResponse.response?.statusCode {
                     print("Status code for \(route.path):", statusCode)
@@ -230,7 +238,7 @@ public class WebClient: DataProvider {
                     print("Unknown error for \(route.path)")
                 }
             }
-            processErrorCode(errorCode: errorCode, errorBody: body, observer: observer)
+            processErrorCode(errorCode: statusCode, errorBody: body, observer: observer)
         }
     }
     

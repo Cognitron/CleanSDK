@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.9.1)
-  - CleanSDK (0.1.0):
-    - Alamofire
+  - CleanSDK (0.1.19):
+    - Alamofire (< 5)
     - RxCocoa
     - RxDataSources
     - RxSwift
@@ -55,7 +55,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  CleanSDK: 3f94b6bd9294973bd014c6df7c285e8bd83c7c3f
+  CleanSDK: 24cdf34aa8adc1788731adc21eea55cae6512e2a
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
