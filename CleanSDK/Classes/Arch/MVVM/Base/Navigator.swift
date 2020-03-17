@@ -76,6 +76,22 @@ public class Navigator {
         let controller: V = createController(V.self, viewModel: viewModel)
         visibleController?.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    public func pushAndReplace<VM: ViewModelType, V: ViewController<VM>>(_ controller: V.Type, viewModel: VM) {
+        let controller: V = createController(V.self, viewModel: viewModel)
+        if var controllers = visibleController?.navigationController?.viewControllers {
+            controllers.removeLast()
+            controllers.append(controller)
+            visibleController?.navigationController?.setViewControllers(controllers, animated: true)
+        }
+    }
+    
+    public func pop(count: Int) {
+        if let viewControllers = visibleController?.navigationController?.viewControllers {
+            let targetIndex = max(0, viewControllers.count - count - 1)
+            visibleController?.navigationController?.popToViewController(viewControllers[targetIndex], animated: true)
+        }
+    }
      
     public func pop() {
         visibleController?.navigationController?.popViewController(animated: true)

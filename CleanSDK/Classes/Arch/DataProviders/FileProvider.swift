@@ -41,7 +41,7 @@ public class FileProvider {
         return try! Data(contentsOf: url(forFile: fileName))
     }
     
-    private static func url(forFile fileName: String) -> URL {
+    public static func url(forFile fileName: String) -> URL {
         let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let fileURL = directoryURL.appendingPathComponent(fileName)
         return fileURL
