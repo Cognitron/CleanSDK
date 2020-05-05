@@ -131,6 +131,9 @@ public class Navigator {
     public func dismiss() {
         visibleController?.dismiss(animated: true)
     }
+    public func dismiss(completion: @escaping () -> Void) {
+        visibleController?.dismiss(animated: true, completion: completion)
+    }
     
     public func changeTab(to index: Int) {
         visibleController?.tabBarController?.selectedIndex = index
