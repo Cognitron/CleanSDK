@@ -27,6 +27,9 @@ public class MediaPickerConstructor: NSObject, SystemActionConstructorType, UIIm
     public init(sourceType: UIImagePickerController.SourceType) {
         self.imagePickerController = UIImagePickerController()
         self.imagePickerController.sourceType = sourceType
+        if let mediaTypes = UIImagePickerController.availableMediaTypes(for: sourceType) {
+            self.imagePickerController.mediaTypes = mediaTypes
+        }
         
         super.init()
         
