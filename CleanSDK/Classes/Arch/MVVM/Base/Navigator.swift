@@ -85,6 +85,17 @@ public class Navigator {
             visibleController?.navigationController?.setViewControllers(controllers, animated: true)
         }
     }
+    public func pushAndReplaceAllSavingFirst<VM: ViewModelType, V: ViewController<VM>>(_ controller: V.Type, viewModel: VM) {
+        let controller: V = createController(V.self, viewModel: viewModel)
+        if var controllers = visibleController?.navigationController?.viewControllers {
+            var resultControllers = [UIViewController]()
+            if let firstController = controllers.first {
+                resultControllers.append(firstController)
+            }
+            resultControllers.append(controller)
+            visibleController?.navigationController?.setViewControllers(resultControllers, animated: true)
+        }
+    }
     
     public func pop(count: Int) {
         if let viewControllers = visibleController?.navigationController?.viewControllers {
