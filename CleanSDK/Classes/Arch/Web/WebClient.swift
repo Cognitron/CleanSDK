@@ -271,7 +271,9 @@ public class WebClient: DataProvider {
                 }
                 
             case let .value(value, field):
-                if let data = "\(value)".data(using: .utf8) {
+                if value is NSNull {
+                    multipart.append(Data(), withName: field)
+                } else if let data = "\(value)".data(using: .utf8) {
                     multipart.append(data, withName: field)
                 }
                 
