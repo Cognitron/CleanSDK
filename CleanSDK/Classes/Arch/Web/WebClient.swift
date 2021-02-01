@@ -195,7 +195,7 @@ public class WebClient: DataProvider {
                 let decoded: T = try decode(data: data)
                 observer(.success(decoded))
             } catch let error {
-                observer(.error(error))
+                observer(.failure(error))
             }
         } else {
             if Debugger.needDebugWebResponse {
@@ -245,11 +245,11 @@ public class WebClient: DataProvider {
     private func processErrorCode<T>(errorCode: Int, errorBody: String, observer: (SingleEvent<T>) -> Void) {
         switch errorCode {
         case NSURLErrorNotConnectedToInternet:
-            observer(.error(WebClientError.notConnectedToInternet))
+            observer(.failure(WebClientError.notConnectedToInternet))
         case NSURLErrorTimedOut:
-            observer(.error(WebClientError.timedOut))
+            observer(.failure(WebClientError.timedOut))
         default:
-            observer(.error(WebClientError.unknown(body: errorBody)))
+            observer(.failure(WebClientError.unknown(body: errorBody)))
         }
     }
     
