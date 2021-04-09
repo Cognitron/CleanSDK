@@ -21,6 +21,8 @@ public class ImagePickerConstructor: NSObject, SystemActionConstructorType, UIIm
     public init(sourceType: UIImagePickerController.SourceType) {
         self.imagePickerController = UIImagePickerController()
         self.imagePickerController.sourceType = sourceType
+        self.imagePickerController.cameraDevice = UIImagePickerController.CameraDevice.front
+
         
         super.init()
         
